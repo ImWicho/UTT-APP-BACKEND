@@ -11,4 +11,6 @@ Route.group(() => {
   Route.resource('roles', 'RolesController')
   Route.resource('users', 'UsersController')
   Route.resource('orders', 'OrdersController')
+
+  Route.resource('quizzes', 'QuizzesController')
 }).prefix('api/v1')
