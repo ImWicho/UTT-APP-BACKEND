@@ -3,7 +3,13 @@ import Order from 'App/Models/Order'
 
 export default class OrdersController {
   public async index({ response }: HttpContextContract) {
-    const orders = await Order.query().preload('providers').preload('status').preload('area')
+    const orders = await Order.query()
+      .preload('providers')
+      .preload('status')
+      .preload('area')
+      .preload('quiz', (query) => {
+        query.preload('providers')
+      })
 
     return response.ok(orders)
   }

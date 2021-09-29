@@ -1,6 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  ManyToMany,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Provider from './Provider'
+import Order from './Order'
 
 export default class Quiz extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +25,9 @@ export default class Quiz extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => Order)
+  public order: BelongsTo<typeof Order>
 
   @manyToMany(() => Provider, {
     pivotTable: 'results',
