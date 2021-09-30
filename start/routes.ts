@@ -13,7 +13,10 @@ Route.group(() => {
   Route.resource('areas', 'AreasController')
   Route.resource('roles', 'RolesController')
   Route.resource('users', 'UsersController')
+
   Route.resource('orders', 'OrdersController')
+  Route.get('orders/with/quiz', 'OrdersController.withQuiz')
+  Route.get('orders/without/quiz', 'OrdersController.withOutQuiz')
 
   Route.resource('quizzes', 'QuizzesController')
   Route.resource('results', 'ResultsController')

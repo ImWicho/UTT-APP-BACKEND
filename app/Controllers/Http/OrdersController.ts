@@ -14,6 +14,32 @@ export default class OrdersController {
     return response.ok(orders)
   }
 
+  public async withQuiz({ response }: HttpContextContract) {
+    const orders = await Order.query()
+      .has('quiz')
+      .preload('providers')
+      .preload('status')
+      .preload('area')
+      .preload('quiz', (query) => {
+        query.preload('providers')
+      })
+
+    return response.ok(orders)
+  }
+
+  public async withOutQuiz({ response }: HttpContextContract) {
+    const orders = await Order.query()
+      .doesntHave('quiz')
+      .preload('providers')
+      .preload('status')
+      .preload('area')
+      .preload('quiz', (query) => {
+        query.preload('providers')
+      })
+
+    return response.ok(orders)
+  }
+
   public async store({ response }: HttpContextContract) {
     return response.notFound()
   }
