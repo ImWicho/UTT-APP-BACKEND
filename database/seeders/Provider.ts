@@ -2,7 +2,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Provider from 'App/Models/Provider'
 
 export default class ProviderSeeder extends BaseSeeder {
-  public async run() {
+  public static async run() {
     await Provider.createMany([
       {
         name: 'Rivers Systems',

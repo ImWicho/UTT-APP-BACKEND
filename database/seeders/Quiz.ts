@@ -2,7 +2,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Quiz from 'App/Models/Quiz'
 
 export default class QuizSeeder extends BaseSeeder {
-  public async run() {
+  public static async run() {
     await Quiz.createMany([
       {
         orderId: 1,

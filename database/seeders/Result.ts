@@ -2,7 +2,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Result from 'App/Models/Result'
 
 export default class ResultSeeder extends BaseSeeder {
-  public async run() {
+  public static async run() {
     await Result.createMany([
       {
         quizId: 1,
@@ -15,6 +15,18 @@ export default class ResultSeeder extends BaseSeeder {
       {
         quizId: 3,
         providerId: 3,
+      },
+      {
+        quizId: 1,
+        providerId: 3,
+      },
+      {
+        quizId: 2,
+        providerId: 1,
+      },
+      {
+        quizId: 3,
+        providerId: 2,
       },
     ])
   }

@@ -7,7 +7,7 @@ export default class Scores extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.bigIncrements('id')
       table.string('name', 50).notNullable()
-      table.decimal('value', 2).notNullable()
+      table.integer('value').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

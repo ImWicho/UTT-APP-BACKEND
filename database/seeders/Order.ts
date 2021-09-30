@@ -2,7 +2,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Order from 'App/Models/Order'
 
 export default class OrderSeeder extends BaseSeeder {
-  public async run() {
+  public static async run() {
     await Order.createMany([
       {
         cost: 1000,
