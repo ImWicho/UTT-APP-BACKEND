@@ -6,11 +6,11 @@ export default class OrderProviderSeeder extends BaseSeeder {
     await OrderProvider.createMany([
       {
         orderId: 1,
-        providerId: 2,
+        providerId: 1,
       },
       {
         orderId: 1,
-        providerId: 2,
+        providerId: 3,
       },
       {
         orderId: 2,
@@ -18,6 +18,14 @@ export default class OrderProviderSeeder extends BaseSeeder {
       },
       {
         orderId: 2,
+        providerId: 1,
+      },
+      {
+        orderId: 3,
+        providerId: 3,
+      },
+      {
+        orderId: 3,
         providerId: 2,
       },
     ])
