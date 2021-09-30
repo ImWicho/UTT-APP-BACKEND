@@ -1,7 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Result from 'App/Models/Result'
 
 export default class ResultsController {
-  public async index({}: HttpContextContract) {}
+  public async index({ response }: HttpContextContract) {
+    const results = await Result.query().preload('scores')
+
+    return response.ok(results)
+  }
 
   public async create({}: HttpContextContract) {}
 
