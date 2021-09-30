@@ -21,10 +21,6 @@ export default class ResultScoreSeeder extends BaseSeeder {
         resultId: 1,
         scoreId: 3,
       },
-      {
-        resultId: 1,
-        scoreId: 1,
-      },
     ])
   }
 }
