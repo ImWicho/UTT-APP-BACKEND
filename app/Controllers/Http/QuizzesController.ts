@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
+import CreateQuizValidator from 'App/Validators/CreateQuizValidator'
 
 export default class QuizzesController {
   public async index({ response }: HttpContextContract) {
@@ -11,6 +12,7 @@ export default class QuizzesController {
   }
 
   public async store({ response, request }: HttpContextContract) {
+    await request.validate(CreateQuizValidator)
     const trx = await Database.transaction()
     try {
       const { orderId, providers } = request.body()
