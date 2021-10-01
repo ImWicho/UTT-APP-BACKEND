@@ -6,8 +6,8 @@ export default class UsersSchema extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.bigIncrements('id').primary()
-      table.bigInteger('role_id').unsigned().references('roles.id')
-      table.bigInteger('area_id').unsigned().references('areas.id')
+      table.bigInteger('role_id').unsigned().references('roles.id').notNullable()
+      table.bigInteger('area_id').unsigned().references('areas.id').notNullable()
       table.boolean('is_active').defaultTo(true).notNullable()
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
