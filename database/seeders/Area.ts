@@ -10,6 +10,12 @@ export default class AreaSeeder extends BaseSeeder {
       {
         name: 'Servicios Administrativos',
       },
+      {
+        name: 'Vinculación',
+      },
+      {
+        name: 'Recursos Humanos',
+      },
     ])
   }
 }
