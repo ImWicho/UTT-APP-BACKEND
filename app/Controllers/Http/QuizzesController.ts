@@ -6,7 +6,9 @@ import CreateQuizValidator from 'App/Validators/CreateQuizValidator'
 
 export default class QuizzesController {
   public async index({ response }: HttpContextContract) {
-    const quizes = await Quiz.query().preload('providers')
+    const quizes = await Quiz.query()
+      .preload('providers')
+      .preload('results', (query) => query.preload('scores').preload('provider'))
 
     return response.ok(quizes)
   }

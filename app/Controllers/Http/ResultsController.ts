@@ -3,7 +3,7 @@ import Result from 'App/Models/Result'
 
 export default class ResultsController {
   public async index({ response }: HttpContextContract) {
-    const results = await Result.query().preload('scores')
+    const results = await Result.query().preload('scores').preload('provider')
 
     return response.ok(results)
   }
