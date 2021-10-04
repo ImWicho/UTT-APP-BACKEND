@@ -4,7 +4,9 @@ import CreateProviderValidator from 'App/Validators/CreateProviderValidator'
 
 export default class ProvidersController {
   public async index({ response }: HttpContextContract) {
-    const providers = await Provider.query().preload('status')
+    const providers = await Provider.query()
+      .preload('status')
+      .preload('results', (query) => query.preload('scores'))
     return response.ok(providers)
   }
 

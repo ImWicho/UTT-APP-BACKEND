@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
+import Provider from 'App/Models/Provider'
 import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
 import ResultScore from 'App/Models/ResultScore'
@@ -26,6 +27,13 @@ export default class ResultsController {
         await ResultScore.create({ resultId, scoreId: score }, trx)
       }
 
+      const totalScore = await this.getScore(resultId)
+      const result = await Result.findOrFail(resultId)
+      const provider = await Provider.findOrFail(result.providerId)
+      provider.statusId = totalScore >= 80 ? 2 : 3
+      provider.useTransaction(trx)
+      await provider.save()
+
       await trx.commit()
       return response.created({
         status: true,
@@ -46,4 +54,11 @@ export default class ResultsController {
   public async update({}: HttpContextContract) {}
 
   public async destroy({}: HttpContextContract) {}
+
+  private async getScore(resultId: number) {
+    const resultScores = await ResultScore.query().preload('score').where('resultId', resultId)
+    const values = resultScores.map((x) => x.score.value)
+    const finalScore = values.reduce((a, b) => a + b)
+    return finalScore
+  }
 }
