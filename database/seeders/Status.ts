@@ -13,6 +13,12 @@ export default class StatusSeeder extends BaseSeeder {
       {
         name: 'Condicionado',
       },
+      {
+        name: 'Incompleta',
+      },
+      {
+        name: 'Completa',
+      },
     ])
   }
 }

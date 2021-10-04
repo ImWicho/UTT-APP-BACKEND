@@ -10,23 +10,23 @@ export default class OrderProviderSeeder extends BaseSeeder {
       },
       {
         orderId: 1,
-        providerId: 3,
-      },
-      {
-        orderId: 2,
         providerId: 2,
       },
       {
         orderId: 2,
-        providerId: 1,
-      },
-      {
-        orderId: 3,
         providerId: 3,
       },
       {
+        orderId: 2,
+        providerId: 4,
+      },
+      {
         orderId: 3,
-        providerId: 2,
+        providerId: 5,
+      },
+      {
+        orderId: 3,
+        providerId: 6,
       },
     ])
   }
