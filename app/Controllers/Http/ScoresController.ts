@@ -1,17 +1,34 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Score from 'App/Models/Score'
 
 export default class ScoresController {
-  public async index({}: HttpContextContract) {}
+  public async index({ response }: HttpContextContract) {
+    const scores = await Score.all()
 
-  public async create({}: HttpContextContract) {}
+    return response.ok(scores)
+  }
 
-  public async store({}: HttpContextContract) {}
+  public async create({ response }: HttpContextContract) {
+    return response.notFound()
+  }
 
-  public async show({}: HttpContextContract) {}
+  public async store({ response }: HttpContextContract) {
+    return response.notFound()
+  }
 
-  public async edit({}: HttpContextContract) {}
+  public async show({ response }: HttpContextContract) {
+    return response.notFound()
+  }
 
-  public async update({}: HttpContextContract) {}
+  public async edit({ response }: HttpContextContract) {
+    return response.notFound()
+  }
 
-  public async destroy({}: HttpContextContract) {}
+  public async update({ response }: HttpContextContract) {
+    return response.notFound()
+  }
+
+  public async destroy({ response }: HttpContextContract) {
+    return response.notFound()
+  }
 }
