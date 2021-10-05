@@ -16,6 +16,7 @@ Route.group(() => {
   Route.get('orders/without/quiz', 'OrdersController.withOutQuiz')
 
   Route.resource('quizzes', 'QuizzesController')
+  Route.get('quizzes/by/area', 'QuizzesController.byArea')
   Route.resource('results', 'ResultsController')
   Route.post('results/reEvaluate', 'ResultsController.reEvaluate')
 })

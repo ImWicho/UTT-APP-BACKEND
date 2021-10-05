@@ -13,6 +13,18 @@ export default class QuizzesController {
     return response.ok(quizes)
   }
 
+  public async byArea({ response, auth }: HttpContextContract) {
+    const areaId = auth.user?.areaId || 0
+    const quizes = await Quiz.query()
+      .whereHas('order', (query) => {
+        query.where('areaId', areaId)
+      })
+      .preload('providers')
+      .preload('results', (query) => query.preload('scores').preload('provider'))
+
+    return response.ok(quizes)
+  }
+
   public async store({ response, request }: HttpContextContract) {
     await request.validate(CreateQuizValidator)
     const trx = await Database.transaction()
