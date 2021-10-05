@@ -7,17 +7,17 @@ export default class OrderSeeder extends BaseSeeder {
       {
         cost: 1000,
         statusId: 4,
-        areaId: 1,
+        areaId: 3,
       },
       {
         cost: 5000,
         statusId: 4,
-        areaId: 2,
+        areaId: 3,
       },
       {
         cost: 4500,
         statusId: 4,
-        areaId: 1,
+        areaId: 4,
       },
     ])
   }
