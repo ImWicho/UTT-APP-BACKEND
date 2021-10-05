@@ -17,6 +17,7 @@ Route.group(() => {
 
   Route.resource('quizzes', 'QuizzesController')
   Route.resource('results', 'ResultsController')
+  Route.post('results/reEvaluate', 'ResultsController.reEvaluate')
 })
   .prefix('api/v1')
   .middleware(['auth:api'])

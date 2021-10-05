@@ -49,6 +49,48 @@ export default class ResultsController {
     }
   }
 
+  public async reEvaluate({ request, response }: HttpContextContract) {
+    await request.validate(CreateResultValidator)
+    const trx = await Database.transaction()
+    try {
+      const { resultId, quizId, scores } = request.body()
+      const oldResult = await ResultScore.query().where('resultId', resultId)
+
+      for (const old of oldResult) {
+        old.useTransaction(trx)
+        await old.delete()
+      }
+      const quiz = await Quiz.findOrFail(quizId)
+      quiz.isAnswered = true
+      quiz.useTransaction(trx)
+      await quiz.save()
+
+      for (const score of scores) {
+        await ResultScore.create({ resultId, scoreId: score }, trx)
+      }
+
+      const totalScore = await this.getScore(resultId)
+      const result = await Result.findOrFail(resultId)
+      const provider = await Provider.findOrFail(result.providerId)
+      provider.statusId = totalScore >= 80 ? 2 : 3
+      provider.useTransaction(trx)
+      await provider.save()
+
+      await trx.commit()
+      return response.created({
+        status: true,
+        message: 'Quiz has been answered successfully',
+      })
+    } catch (error: any) {
+      await trx.rollback()
+      console.log(error)
+      return response.internalServerError({
+        status: false,
+        message: 'Something went wrong',
+      })
+    }
+  }
+
   public async show({}: HttpContextContract) {}
 
   public async update({}: HttpContextContract) {}
