@@ -7,4 +7,12 @@ export default class UsersController {
 
     return response.ok(users)
   }
+
+  public async getUser({ response, auth }: HttpContextContract) {
+    const userId = auth.user?.id || 0
+
+    const user = await User.query().where('id', userId).preload('area').preload('role').first()
+
+    return response.ok(user)
+  }
 }

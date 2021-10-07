@@ -1,7 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.post('login', 'AuthController.login')
-Route.post('logout', 'AuthController.logout').middleware(['auth:api'])
+Route.delete('logout', 'AuthController.logout').middleware(['auth:api'])
 
 Route.group(() => {
   Route.resource('providers', 'ProvidersController')
@@ -9,6 +9,7 @@ Route.group(() => {
   Route.resource('areas', 'AreasController')
   Route.resource('roles', 'RolesController')
   Route.resource('users', 'UsersController')
+  Route.get('user', 'UsersController.getUser')
   Route.resource('scores', 'ScoresController')
 
   Route.resource('orders', 'OrdersController')
