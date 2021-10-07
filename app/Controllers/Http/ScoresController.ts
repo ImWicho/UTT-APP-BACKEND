@@ -3,7 +3,7 @@ import Score from 'App/Models/Score'
 
 export default class ScoresController {
   public async index({ response }: HttpContextContract) {
-    const scores = await Score.all()
+    const scores = (await Score.all()).reverse()
 
     return response.ok(scores)
   }
