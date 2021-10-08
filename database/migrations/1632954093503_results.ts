@@ -8,6 +8,7 @@ export default class Results extends BaseSchema {
       table.bigIncrements('id')
       table.bigInteger('quiz_id').unsigned().references('quizzes.id').notNullable()
       table.bigInteger('provider_id').unsigned().references('providers.id').notNullable()
+      table.boolean('is_answered').notNullable().defaultTo(false)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

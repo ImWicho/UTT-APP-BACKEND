@@ -20,6 +20,9 @@ export default class Result extends BaseModel {
   @column()
   public providerId: number
 
+  @column()
+  public isAnswered: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

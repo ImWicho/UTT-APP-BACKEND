@@ -32,6 +32,10 @@ export default class ResultsController {
 
       const totalScore = await this.getScore(resultId)
       const result = await Result.findOrFail(resultId)
+      result.isAnswered = true
+      result.useTransaction(trx)
+      await result.save()
+
       const provider = await Provider.findOrFail(result.providerId)
       provider.statusId = totalScore >= 80 ? 2 : 3
       provider.useTransaction(trx)
