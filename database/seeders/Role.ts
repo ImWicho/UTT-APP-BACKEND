@@ -5,6 +5,9 @@ export default class RoleSeeder extends BaseSeeder {
   public static async run() {
     await Role.createMany([
       {
+        name: 'Admin',
+      },
+      {
         name: 'Lider',
       },
       {

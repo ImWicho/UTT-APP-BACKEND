@@ -5,6 +5,9 @@ export default class AreaSeeder extends BaseSeeder {
   public static async run() {
     await Area.createMany([
       {
+        name: 'Desarrollo',
+      },
+      {
         name: 'Recursos Materiales y Servicios Generales',
       },
       {
