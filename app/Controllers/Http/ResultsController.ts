@@ -5,10 +5,13 @@ import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
 import ResultScore from 'App/Models/ResultScore'
 import CreateResultValidator from 'App/Validators/CreateResultValidator'
+import RestoreProviderValidator from 'App/Validators/RestoreProviderValidator'
 
 export default class ResultsController {
   public async index({ response }: HttpContextContract) {
-    const results = await Result.query().preload('scores').preload('provider')
+    const results = await Result.query()
+      .preload('scores')
+      .preload('provider', (query) => query.preload('status'))
 
     return response.ok(results)
   }
@@ -80,6 +83,39 @@ export default class ResultsController {
       return response.created({
         status: true,
         message: 'Quiz has been answered successfully',
+      })
+    } catch (error: any) {
+      await trx.rollback()
+      console.log(error)
+      return response.internalServerError({
+        status: false,
+        message: 'Something went wrong',
+      })
+    }
+  }
+
+  public async restoreProvider({ request, response }: HttpContextContract) {
+    await request.validate(RestoreProviderValidator)
+    const trx = await Database.transaction()
+    try {
+      const { resultId } = request.body()
+      const result = await Result.findOrFail(resultId)
+      const provider = await Provider.findOrFail(result.providerId)
+      const oldResult = await ResultScore.query().where('resultId', resultId)
+
+      for (const old of oldResult) {
+        old.useTransaction(trx)
+        await old.delete()
+      }
+
+      provider.statusId = 1
+      provider.useTransaction(trx)
+      await provider.save()
+
+      await trx.commit()
+      return response.created({
+        status: true,
+        message: 'Provider has been restored successfully',
       })
     } catch (error: any) {
       await trx.rollback()

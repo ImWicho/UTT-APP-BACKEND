@@ -20,6 +20,7 @@ Route.group(() => {
   Route.get('quizzes/by/area', 'QuizzesController.byArea')
   Route.resource('results', 'ResultsController')
   Route.post('results/reEvaluate', 'ResultsController.reEvaluate')
+  Route.post('results/restoreProvider', 'ResultsController.restoreProvider')
 })
   .prefix('api/v1')
   .middleware(['auth:api'])
