@@ -17,11 +17,11 @@ export default class ResultsController {
     await request.validate(CreateResultValidator)
     const trx = await Database.transaction()
     try {
-      const { resultId, quizId, scores } = request.body()
-      const quiz = await Quiz.findOrFail(quizId)
-      quiz.isAnswered = true
-      quiz.useTransaction(trx)
-      await quiz.save()
+      const { resultId, scores } = request.body()
+      // const quiz = await Quiz.findOrFail(quizId)
+      // quiz.isAnswered = true
+      // quiz.useTransaction(trx)
+      // await quiz.save()
 
       for (const score of scores) {
         await ResultScore.create({ resultId, scoreId: score }, trx)

@@ -6,17 +6,17 @@ export default class OrderSeeder extends BaseSeeder {
     await Order.createMany([
       {
         cost: 1000,
-        statusId: 4,
+        // statusId: 4,
         areaId: 3,
       },
       {
         cost: 5000,
-        statusId: 4,
+        // statusId: 4,
         areaId: 3,
       },
       {
         cost: 4500,
-        statusId: 4,
+        // statusId: 4,
         areaId: 4,
       },
     ])

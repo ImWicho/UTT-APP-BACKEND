@@ -5,7 +5,7 @@ export default class OrdersController {
   public async index({ response }: HttpContextContract) {
     const orders = await Order.query()
       .preload('providers')
-      .preload('status')
+      // .preload('status')
       .preload('area')
       .preload('quiz', (query) => {
         query.preload('providers')
@@ -18,7 +18,7 @@ export default class OrdersController {
     const orders = await Order.query()
       .has('quiz')
       .preload('providers')
-      .preload('status')
+      // .preload('status')
       .preload('area')
       .preload('quiz', (query) => {
         query.preload('providers')
@@ -31,7 +31,7 @@ export default class OrdersController {
     const orders = await Order.query()
       .doesntHave('quiz')
       .preload('providers')
-      .preload('status')
+      // .preload('status')
       .preload('area')
       .preload('quiz', (query) => {
         query.preload('providers')

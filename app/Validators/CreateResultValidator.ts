@@ -24,7 +24,7 @@ export default class CreateResultValidator {
    *    ```
    */
   public schema = schema.create({
-    quizId: schema.number([rules.required()]),
+    // quizId: schema.number([rules.required()]),
     resultId: schema.number([rules.required()]),
     scores: schema.array([rules.minLength(4), rules.maxLength(4)]).members(schema.number()),
   })

@@ -21,7 +21,7 @@ export default class ProviderSeeder extends BaseSeeder {
       },
       {
         id: 4,
-        name: 'PComponentes',
+        name: 'PComponentes 2',
         statusId: 1,
       },
       {
