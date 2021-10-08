@@ -7,6 +7,9 @@ import CreateQuizValidator from 'App/Validators/CreateQuizValidator'
 export default class QuizzesController {
   public async index({ response }: HttpContextContract) {
     const quizes = await Quiz.query()
+      .whereHas('results', (query) => {
+        query.where('isAnswered', false)
+      })
       .preload('providers')
       .preload('results', (query) => query.preload('scores').preload('provider'))
 
@@ -18,6 +21,9 @@ export default class QuizzesController {
     const quizes = await Quiz.query()
       .whereHas('order', (query) => {
         query.where('areaId', areaId)
+      })
+      .andWhereHas('results', (query) => {
+        query.where('isAnswered', false)
       })
       .preload('providers')
       .preload('results', (query) => query.preload('scores').preload('provider'))

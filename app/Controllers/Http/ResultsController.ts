@@ -104,6 +104,9 @@ export default class ResultsController {
     try {
       const { resultId } = request.body()
       const result = await Result.findOrFail(resultId)
+      result.isAnswered = false
+      result.useTransaction(trx)
+      await result.save()
       const provider = await Provider.findOrFail(result.providerId)
       const oldResult = await ResultScore.query().where('resultId', resultId)
 
