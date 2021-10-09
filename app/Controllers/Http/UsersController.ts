@@ -11,7 +11,13 @@ export default class UsersController {
   public async getUser({ response, auth }: HttpContextContract) {
     const userId = auth.user?.id || 0
 
-    const user = await User.query().where('id', userId).preload('area').preload('role').first()
+    const user = await User.query()
+      .where('id', userId)
+      .preload('area', (query) => {
+        query.preload('views')
+      })
+      .preload('role')
+      .first()
 
     return response.ok(user)
   }

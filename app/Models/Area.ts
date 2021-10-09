@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './user'
 import Order from './Order'
+import View from './View'
 
 export default class Area extends BaseModel {
   @column({ isPrimary: true })
@@ -21,4 +22,9 @@ export default class Area extends BaseModel {
 
   @hasOne(() => Order)
   public order: HasOne<typeof Order>
+
+  @manyToMany(() => View, {
+    pivotTable: 'area_views',
+  })
+  public views: ManyToMany<typeof View>
 }

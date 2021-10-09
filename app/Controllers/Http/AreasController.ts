@@ -4,7 +4,7 @@ import CreateAreaValidator from 'App/Validators/CreateAreaValidator'
 
 export default class AreasController {
   public async index({ response }: HttpContextContract) {
-    const areas = await Area.all()
+    const areas = await Area.query().preload('views')
     return response.ok(areas)
   }
 
