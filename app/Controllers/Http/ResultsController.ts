@@ -10,10 +10,26 @@ import RestoreProviderValidator from 'App/Validators/RestoreProviderValidator'
 export default class ResultsController {
   public async index({ response }: HttpContextContract) {
     const results = await Result.query()
+      .has('scores')
       .preload('scores')
       .preload('provider', (query) => query.preload('status'))
 
-    return response.ok(results)
+    const resultsWithScore = results.map((x) => {
+      const values = x.scores.map((x) => x.value)
+
+      let finalScore: number = 0
+
+      values.forEach((x) => {
+        finalScore += x
+      })
+
+      return {
+        ...x.$original,
+        ...x.$preloaded,
+        finalScore,
+      }
+    })
+    return response.ok(resultsWithScore)
   }
 
   public async store({ request, response }: HttpContextContract) {
