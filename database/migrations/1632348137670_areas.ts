@@ -7,6 +7,7 @@ export default class Areas extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.bigIncrements('id')
       table.string('name', 100).notNullable()
+      table.string('email', 200).notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

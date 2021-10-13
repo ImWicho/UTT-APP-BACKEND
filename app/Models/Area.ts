@@ -11,6 +11,9 @@ export default class Area extends BaseModel {
   @column()
   public name: string
 
+  @column()
+  public email: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

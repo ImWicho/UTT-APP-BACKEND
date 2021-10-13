@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
+import Area from 'App/Models/Area'
+import Order from 'App/Models/Order'
 import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
 import CreateQuizValidator from 'App/Validators/CreateQuizValidator'
@@ -37,6 +39,12 @@ export default class QuizzesController {
     try {
       const { orderId, providers } = request.body()
       const quiz = await Quiz.create({ orderId }, trx)
+      const area = await Area.query()
+        .whereHas('order', (query) => {
+          query.where('id', orderId)
+        })
+        .first()
+      // area?.email
 
       for (const provider of providers) {
         await Result.create({ providerId: provider, quizId: quiz.id }, trx)
