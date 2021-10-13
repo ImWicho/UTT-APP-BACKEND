@@ -11,6 +11,9 @@ export default class Provider extends BaseModel {
   public name: string
 
   @column()
+  public email: string
+
+  @column()
   public statusId: number
 
   @column.dateTime({ autoCreate: true })

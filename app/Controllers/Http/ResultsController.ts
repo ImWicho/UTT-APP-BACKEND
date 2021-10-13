@@ -4,6 +4,7 @@ import Provider from 'App/Models/Provider'
 import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
 import ResultScore from 'App/Models/ResultScore'
+import Status from 'App/Models/Status'
 import CreateResultValidator from 'App/Validators/CreateResultValidator'
 import RestoreProviderValidator from 'App/Validators/RestoreProviderValidator'
 
@@ -37,10 +38,6 @@ export default class ResultsController {
     const trx = await Database.transaction()
     try {
       const { resultId, scores } = request.body()
-      // const quiz = await Quiz.findOrFail(quizId)
-      // quiz.isAnswered = true
-      // quiz.useTransaction(trx)
-      // await quiz.save()
 
       for (const score of scores) {
         await ResultScore.create({ resultId, scoreId: score }, trx)
@@ -56,6 +53,12 @@ export default class ResultsController {
       provider.statusId = totalScore >= 80 ? 2 : 3
       provider.useTransaction(trx)
       await provider.save()
+
+      const status = await Status.query().where('id', provider.statusId).first()
+
+      // provider.email
+      // totalScore (es la calificación)
+      // status?.name
 
       await trx.commit()
       return response.created({
