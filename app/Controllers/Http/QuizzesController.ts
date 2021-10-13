@@ -5,6 +5,7 @@ import Order from 'App/Models/Order'
 import Quiz from 'App/Models/Quiz'
 import Result from 'App/Models/Result'
 import CreateQuizValidator from 'App/Validators/CreateQuizValidator'
+import EmailsController from './EmailsController'
 
 export default class QuizzesController {
   public async index({ response }: HttpContextContract) {
@@ -45,7 +46,12 @@ export default class QuizzesController {
         })
         .first()
       // area?.email
-
+      EmailsController.send(
+        'Se han activado encuestas para evaluar proveedores.',
+        'Evaluaciones Pendientes',
+        area?.email,
+        'hector.castorena.castillo@gmail.com',
+      )
       for (const provider of providers) {
         await Result.create({ providerId: provider, quizId: quiz.id }, trx)
       }

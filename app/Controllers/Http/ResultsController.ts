@@ -7,6 +7,7 @@ import ResultScore from 'App/Models/ResultScore'
 import Status from 'App/Models/Status'
 import CreateResultValidator from 'App/Validators/CreateResultValidator'
 import RestoreProviderValidator from 'App/Validators/RestoreProviderValidator'
+import EmailsController from './EmailsController'
 
 export default class ResultsController {
   public async index({ response }: HttpContextContract) {
@@ -60,6 +61,12 @@ export default class ResultsController {
       // totalScore (es la calificación)
       // status?.name
 
+      EmailsController.send(
+        `Usted ha sido calificado con un total de ${totalScore}, ha sido evaluado como un proveedor de tipo ${status?.name}`,
+        'Resultado Encuesta',
+        provider.email,
+        'hector.castorena.castillo@gmail.com',
+      )
       await trx.commit()
       return response.created({
         status: true,
